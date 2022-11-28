@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subjects</title>
+</head>
+<body>
+<div>
+  <form action="/logout" method="post">
+    <input type="submit" value="Log out"/>
+  </form>
+</div>
+<div>
+  <form action="/subjects/new" method="get">
+    <input type="submit" value="Create"/>
+  </form>
+</div>
+<div>
+  <form action="/subjects/category" method="get">
+    <div>
+      <input type="radio" id="Book" name="typeSubject" value="BOOK"/>
+      <label for="Book">Book</label>
+
+      <input type="radio" id="Journal" name="typeSubject" value="JOURNAL"/>
+      <label for="Journal">Journal</label>
+
+      <input type="radio" id="Newspaper" name="typeSubject" value="NEWSPAPER"/>
+      <label for="Newspaper">Newspaper</label>
+    </div>
+    <div>
+      <button type="submit">Choose category</button>
+    </div>
+  </form>
+  <form action="/subjects" method="get">
+    <div>
+      <button type="submit">Show all</button>
+    </div>
+  </form>
+</div>
+<span th:if="${!subjects.isEmpty}">
+<table>
+  <caption>Subjects</caption>
+  <tr>
+    <th>Title</th>
+    <th>Amount</th>
+    <th>Author</th>
+    <th>Publisher</th>
+    <th>Number page</th>
+    <th>Number</th>
+    <th>Date release</th>
+    <th>Category</th>
+  </tr>
+  <th:block th:each="subject : ${subjects}">
+    <tr>
+      <td><a th:href="|/subjects/${subject.id}|" th:text="${subject.title}"></a></td>
+      <td th:text="${subject.amount}"></td>
+      <td th:text="${subject.author}"></td>
+      <td th:text="${subject.publisher}"></td>
+      <td th:text="${subject.numberPage}"></td>
+      <td th:text="${subject.number}"></td>
+      <td th:text="${subject.dateRelease}"></td>
+      <td th:text="${subject.typeSubject}"></td>
+    </tr>
+  </th:block>
+</table>
+</span>
+</body>
+</html>

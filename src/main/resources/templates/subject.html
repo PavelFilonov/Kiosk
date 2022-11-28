@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Subject</title>
+</head>
+<body>
+<div><label th:utext="${message}"></label></div>
+<div style="color:red"><label th:utext="${error}"></label></div>
+<div>
+  <th:block th:object="${subject}">
+    <form th:action="|/subjects/${subject.id}|" th:method="delete">
+      <input type="submit" value="Delete"/>
+    </form>
+  </th:block>
+</div>
+<th:block th:object="${subject}">
+  <form th:action="|/subjects/${subject.id}|" th:method="put">
+    <div><label th:utext="|Id: ${subject.id}|"></label></div>
+    <div><label>Title: <input type="text" th:field="*{title}" name="title"/></label></div>
+    <div><label>Amount: <input type="number" th:field="*{amount}" name="amount"/></label></div>
+    <div th:switch="${subject.typeSubject}">
+      <div th:case="'BOOK'">
+        <div><label>Author: <input type="text" th:field="*{author}" name="author"/></label></div>
+        <div><label>Publisher: <input type="text" th:field="*{publisher}" name="publisher"/></label></div>
+        <div><label>Number page: <input type="number" th:field="*{numberPage}" name="numberPage"/></label></div>
+      </div>
+      <div th:case="'JOURNAL'">
+        <div><label>Number: <input type="number" th:field="*{number}" name="number"/></label></div>
+        <div><label>Date release: <input type="date" th:field="*{dateRelease}" name="dateRelease"/></label></div>
+        <div><label>Number page: <input type="number" th:field="*{numberPage}" name="numberPage"/></label></div>
+      </div>
+      <div th:case="'NEWSPAPER'">
+        <div><label>Number: <input type="number" th:field="*{number}" name="number"/></label></div>
+        <div><label>Date release: <input type="date" th:field="*{dateRelease}" name="dateRelease"/></label></div>
+      </div>
+    </div>
+    <input type="submit" value="Update subject"/>
+  </form>
+</th:block>
+<div><a href="/subjects">Subjects</a></div>
+<div>
+  <form action="/logout" method="post">
+    <input type="submit" value="Log out"/>
+  </form>
+</div>
+</body>
+</html>
